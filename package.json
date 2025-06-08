@@ -1,0 +1,38 @@
+{
+  "name": "com.liteninja.crossinput",
+  "version": "2.0.0",
+  "displayName": "Ludo CrossInput",
+  "description": "A robust, cross-platform input system for Unity with advanced features including input buffering, device management, rebinding support, performance monitoring, and comprehensive error handling. Seamlessly bridges Legacy and New Input Systems with production-ready reliability.",
+  "unity": "2021.3",
+  "documentationUrl": "https://github.com/sponticelli/Ludo-CrossInput/blob/main/Documentation/README.md",
+  "changelogUrl": "https://github.com/sponticelli/Ludo-CrossInput/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/sponticelli/Ludo-CrossInput/blob/main/LICENSE",
+  "dependencies": {
+    "com.unity.inputsystem": "1.4.4"
+  },
+  "keywords": [
+    "ludo",
+    "input",
+    "controller",
+    "joystick",
+    "cross-platform",
+    "mobile",
+    "buffering",
+    "rebinding",
+    "performance",
+    "device-management",
+    "error-handling",
+    "production-ready"
+  ],
+  "author": {
+    "name": "Sandro Ponticelli",
+    "url": "https://github.com/sponticelli"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Input Example",
+      "description": "Demonstrates basic usage of the InputManager system",
+      "path": "Runtime/Examples"
+    }
+  ]
+}

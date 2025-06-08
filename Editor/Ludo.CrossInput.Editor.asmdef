@@ -1,0 +1,19 @@
+{
+    "name": "Ludo.CrossInput.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ae52607e86c484ece9498c2c9f7124ee",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

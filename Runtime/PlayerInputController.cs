@@ -232,7 +232,7 @@ namespace Ludo.CrossInput
         }
 
         // Action inputs
-        public bool GetFire() => GetInputAction(InputActionNames.FIRE);
+        public bool GetFire() => GetInputActionHeld(InputActionNames.FIRE);
         public bool GetJump() => GetInputAction(InputActionNames.JUMP);
         public bool GetCrouch() => GetInputAction(InputActionNames.CROUCH);
         public bool GetSprint() => GetInputAction(InputActionNames.SPRINT);
@@ -244,6 +244,34 @@ namespace Ludo.CrossInput
         public bool GetNext() => GetInputAction(InputActionNames.NEXT);
         public bool GetBack() => GetInputAction(InputActionNames.BACK);
         public bool GetPause() => GetInputAction(InputActionNames.PAUSE);
+
+        // Trigger-once input methods (consume input flag, return true only once per press)
+        public bool GetFirePressed() => GetInputActionPressed(InputActionNames.FIRE);
+        public bool GetJumpPressed() => GetInputActionPressed(InputActionNames.JUMP);
+        public bool GetCrouchPressed() => GetInputActionPressed(InputActionNames.CROUCH);
+        public bool GetSprintPressed() => GetInputActionPressed(InputActionNames.SPRINT);
+        public bool GetReloadPressed() => GetInputActionPressed(InputActionNames.RELOAD);
+        public bool GetInventoryPressed() => GetInputActionPressed(InputActionNames.INVENTORY);
+        public bool GetInteractPressed() => GetInputActionPressed(InputActionNames.INTERACT);
+        public bool GetMapPressed() => GetInputActionPressed(InputActionNames.MAP);
+        public bool GetPreviousPressed() => GetInputActionPressed(InputActionNames.PREVIOUS);
+        public bool GetNextPressed() => GetInputActionPressed(InputActionNames.NEXT);
+        public bool GetBackPressed() => GetInputActionPressed(InputActionNames.BACK);
+        public bool GetPausePressed() => GetInputActionPressed(InputActionNames.PAUSE);
+
+        // Held input methods (return true while input is held down)
+        public bool GetFireHeld() => GetInputActionHeld(InputActionNames.FIRE);
+        public bool GetJumpHeld() => GetInputActionHeld(InputActionNames.JUMP);
+        public bool GetCrouchHeld() => GetInputActionHeld(InputActionNames.CROUCH);
+        public bool GetSprintHeld() => GetInputActionHeld(InputActionNames.SPRINT);
+        public bool GetReloadHeld() => GetInputActionHeld(InputActionNames.RELOAD);
+        public bool GetInventoryHeld() => GetInputActionHeld(InputActionNames.INVENTORY);
+        public bool GetInteractHeld() => GetInputActionHeld(InputActionNames.INTERACT);
+        public bool GetMapHeld() => GetInputActionHeld(InputActionNames.MAP);
+        public bool GetPreviousHeld() => GetInputActionHeld(InputActionNames.PREVIOUS);
+        public bool GetNextHeld() => GetInputActionHeld(InputActionNames.NEXT);
+        public bool GetBackHeld() => GetInputActionHeld(InputActionNames.BACK);
+        public bool GetPauseHeld() => GetInputActionHeld(InputActionNames.PAUSE);
 
         public T GetKey<T>(string actionName) where T : struct
         {
@@ -374,6 +402,40 @@ namespace Ludo.CrossInput
             catch (Exception ex)
             {
                 Debug.LogError($"Player {PlayerId} - Error getting input action '{actionName}': {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool GetInputActionPressed(string actionName)
+        {
+            try
+            {
+                // Check buffered input first
+                if (enableInputBuffering && inputBuffer != null && inputBuffer.ConsumeBufferedInput(actionName))
+                {
+                    return true;
+                }
+
+                // Check input flags from NewInput (consumes the flag)
+                return newInput?.GetInputFlag(actionName) ?? false;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Player {PlayerId} - Error getting input action pressed '{actionName}': {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool GetInputActionHeld(string actionName)
+        {
+            try
+            {
+                // Check if input is currently being held down
+                return newInput?.GetInputHeld(PlayerInput, actionName) ?? false;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Player {PlayerId} - Error getting input action held '{actionName}': {ex.Message}");
                 return false;
             }
         }

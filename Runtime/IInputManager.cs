@@ -101,6 +101,80 @@ namespace Ludo.CrossInput
         /// <summary>Returns true if the input is pressed or held (mouse/touch/click).</summary>
         bool GetPause();
 
+        // Trigger-once input methods (consume input flag, return true only once per press)
+        /// <summary>Returns true once when the fire input is pressed (trigger-once behavior).</summary>
+        bool GetFirePressed();
+
+        /// <summary>Returns true once when the jump input is pressed (trigger-once behavior).</summary>
+        bool GetJumpPressed();
+
+        /// <summary>Returns true once when the crouch input is pressed (trigger-once behavior).</summary>
+        bool GetCrouchPressed();
+
+        /// <summary>Returns true once when the sprint input is pressed (trigger-once behavior).</summary>
+        bool GetSprintPressed();
+
+        /// <summary>Returns true once when the reload input is pressed (trigger-once behavior).</summary>
+        bool GetReloadPressed();
+
+        /// <summary>Returns true once when the inventory input is pressed (trigger-once behavior).</summary>
+        bool GetInventoryPressed();
+
+        /// <summary>Returns true once when the interact input is pressed (trigger-once behavior).</summary>
+        bool GetInteractPressed();
+
+        /// <summary>Returns true once when the map input is pressed (trigger-once behavior).</summary>
+        bool GetMapPressed();
+
+        /// <summary>Returns true once when the previous input is pressed (trigger-once behavior).</summary>
+        bool GetPreviousPressed();
+
+        /// <summary>Returns true once when the next input is pressed (trigger-once behavior).</summary>
+        bool GetNextPressed();
+
+        /// <summary>Returns true once when the back input is pressed (trigger-once behavior).</summary>
+        bool GetBackPressed();
+
+        /// <summary>Returns true once when the pause input is pressed (trigger-once behavior).</summary>
+        bool GetPausePressed();
+
+        // Held input methods (return true while input is held down)
+        /// <summary>Returns true while the fire input is held down (held behavior).</summary>
+        bool GetFireHeld();
+
+        /// <summary>Returns true while the jump input is held down (held behavior).</summary>
+        bool GetJumpHeld();
+
+        /// <summary>Returns true while the crouch input is held down (held behavior).</summary>
+        bool GetCrouchHeld();
+
+        /// <summary>Returns true while the sprint input is held down (held behavior).</summary>
+        bool GetSprintHeld();
+
+        /// <summary>Returns true while the reload input is held down (held behavior).</summary>
+        bool GetReloadHeld();
+
+        /// <summary>Returns true while the inventory input is held down (held behavior).</summary>
+        bool GetInventoryHeld();
+
+        /// <summary>Returns true while the interact input is held down (held behavior).</summary>
+        bool GetInteractHeld();
+
+        /// <summary>Returns true while the map input is held down (held behavior).</summary>
+        bool GetMapHeld();
+
+        /// <summary>Returns true while the previous input is held down (held behavior).</summary>
+        bool GetPreviousHeld();
+
+        /// <summary>Returns true while the next input is held down (held behavior).</summary>
+        bool GetNextHeld();
+
+        /// <summary>Returns true while the back input is held down (held behavior).</summary>
+        bool GetBackHeld();
+
+        /// <summary>Returns true while the pause input is held down (held behavior).</summary>
+        bool GetPauseHeld();
+
         /// <summary>
         /// Gets the current value of an action (button, float, or vector) using the new Input System.
         /// </summary>

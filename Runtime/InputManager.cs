@@ -485,7 +485,7 @@ namespace Ludo.CrossInput
         }
 
         /// <summary>Returns true if the fire input is pressed or held.</summary>
-        public bool GetFire() => GetInputAction(InputActionNames.FIRE);
+        public bool GetFire() => GetInputActionHeld(InputActionNames.FIRE);
 
         /// <summary>Returns true if the jump input is pressed or held.</summary>
         public bool GetJump() => GetInputAction(InputActionNames.JUMP);
@@ -519,6 +519,81 @@ namespace Ludo.CrossInput
 
         /// <summary>Returns true if the pause input is pressed or held.</summary>
         public bool GetPause() => GetInputAction(InputActionNames.PAUSE);
+
+        // Trigger-once input methods (consume input flag, return true only once per press)
+        /// <summary>Returns true once when the fire input is pressed (trigger-once behavior).</summary>
+        public bool GetFirePressed() => GetInputActionPressed(InputActionNames.FIRE);
+
+        /// <summary>Returns true once when the jump input is pressed (trigger-once behavior).</summary>
+        public bool GetJumpPressed() => GetInputActionPressed(InputActionNames.JUMP);
+
+        /// <summary>Returns true once when the crouch input is pressed (trigger-once behavior).</summary>
+        public bool GetCrouchPressed() => GetInputActionPressed(InputActionNames.CROUCH);
+
+        /// <summary>Returns true once when the sprint input is pressed (trigger-once behavior).</summary>
+        public bool GetSprintPressed() => GetInputActionPressed(InputActionNames.SPRINT);
+
+        /// <summary>Returns true once when the reload input is pressed (trigger-once behavior).</summary>
+        public bool GetReloadPressed() => GetInputActionPressed(InputActionNames.RELOAD);
+
+        /// <summary>Returns true once when the inventory input is pressed (trigger-once behavior).</summary>
+        public bool GetInventoryPressed() => GetInputActionPressed(InputActionNames.INVENTORY);
+
+        /// <summary>Returns true once when the interact input is pressed (trigger-once behavior).</summary>
+        public bool GetInteractPressed() => GetInputActionPressed(InputActionNames.INTERACT);
+
+        /// <summary>Returns true once when the map input is pressed (trigger-once behavior).</summary>
+        public bool GetMapPressed() => GetInputActionPressed(InputActionNames.MAP);
+
+        /// <summary>Returns true once when the previous input is pressed (trigger-once behavior).</summary>
+        public bool GetPreviousPressed() => GetInputActionPressed(InputActionNames.PREVIOUS);
+
+        /// <summary>Returns true once when the next input is pressed (trigger-once behavior).</summary>
+        public bool GetNextPressed() => GetInputActionPressed(InputActionNames.NEXT);
+
+        /// <summary>Returns true once when the back input is pressed (trigger-once behavior).</summary>
+        public bool GetBackPressed() => GetInputActionPressed(InputActionNames.BACK);
+
+        /// <summary>Returns true once when the pause input is pressed (trigger-once behavior).</summary>
+        public bool GetPausePressed() => GetInputActionPressed(InputActionNames.PAUSE);
+
+        // Held input methods (return true while input is held down)
+        /// <summary>Returns true while the fire input is held down (held behavior).</summary>
+        public bool GetFireHeld() => GetInputActionHeld(InputActionNames.FIRE);
+
+        /// <summary>Returns true while the jump input is held down (held behavior).</summary>
+        public bool GetJumpHeld() => GetInputActionHeld(InputActionNames.JUMP);
+
+        /// <summary>Returns true while the crouch input is held down (held behavior).</summary>
+        public bool GetCrouchHeld() => GetInputActionHeld(InputActionNames.CROUCH);
+
+        /// <summary>Returns true while the sprint input is held down (held behavior).</summary>
+        public bool GetSprintHeld() => GetInputActionHeld(InputActionNames.SPRINT);
+
+        /// <summary>Returns true while the reload input is held down (held behavior).</summary>
+        public bool GetReloadHeld() => GetInputActionHeld(InputActionNames.RELOAD);
+
+        /// <summary>Returns true while the inventory input is held down (held behavior).</summary>
+        public bool GetInventoryHeld() => GetInputActionHeld(InputActionNames.INVENTORY);
+
+        /// <summary>Returns true while the interact input is held down (held behavior).</summary>
+        public bool GetInteractHeld() => GetInputActionHeld(InputActionNames.INTERACT);
+
+        /// <summary>Returns true while the map input is held down (held behavior).</summary>
+        public bool GetMapHeld() => GetInputActionHeld(InputActionNames.MAP);
+
+        /// <summary>Returns true while the previous input is held down (held behavior).</summary>
+        public bool GetPreviousHeld() => GetInputActionHeld(InputActionNames.PREVIOUS);
+
+        /// <summary>Returns true while the next input is held down (held behavior).</summary>
+        public bool GetNextHeld() => GetInputActionHeld(InputActionNames.NEXT);
+
+        /// <summary>Returns true while the back input is held down (held behavior).</summary>
+        public bool GetBackHeld() => GetInputActionHeld(InputActionNames.BACK);
+
+        /// <summary>Returns true while the pause input is held down (held behavior).</summary>
+        public bool GetPauseHeld() => GetInputActionHeld(InputActionNames.PAUSE);
+
         /// <summary>
         /// Gets the current value of an action (button, float, or vector) using the new Input System.
         /// </summary>
@@ -567,6 +642,46 @@ namespace Ludo.CrossInput
             catch (Exception ex)
             {
                 Debug.LogError($"Error getting input action '{actionName}': {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets an input action pressed state (trigger-once behavior).
+        /// </summary>
+        private bool GetInputActionPressed(string actionName)
+        {
+            try
+            {
+                // Check buffered input first
+                if (enableInputBuffering && inputBuffer != null && inputBuffer.ConsumeBufferedInput(actionName))
+                {
+                    return true;
+                }
+
+                // Check input flags from NewInput (consumes the flag)
+                return newInput?.GetInputFlag(actionName) ?? false;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error getting input action pressed '{actionName}': {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets an input action held state (returns true while held down).
+        /// </summary>
+        private bool GetInputActionHeld(string actionName)
+        {
+            try
+            {
+                // Check if input is currently being held down
+                return newInput?.GetInputHeld(playerInput, actionName) ?? false;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error getting input action held '{actionName}': {ex.Message}");
                 return false;
             }
         }

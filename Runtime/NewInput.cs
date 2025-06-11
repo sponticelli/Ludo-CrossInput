@@ -133,6 +133,32 @@ namespace Ludo.CrossInput
         }
 
         /// <summary>
+        /// Gets the current held state of an input action. Returns true while the input is being held down.
+        /// </summary>
+        public bool GetInputHeld(PlayerInput input, string expectedActionName)
+        {
+            try
+            {
+                // Get the actual action name from mapping (if available)
+                string actualActionName = _actionMapping?.GetActualActionName(expectedActionName) ?? expectedActionName;
+
+                var action = input?.actions?.FindAction(actualActionName);
+                if (action != null)
+                {
+                    // For button actions, check if the action is currently pressed
+                    return action.ReadValue<float>() > 0.5f;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error checking held input action '{expectedActionName}': {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Sets an input flag manually (useful for mobile button integration).
         /// </summary>
         public void SetInputFlag(string actionName, bool value)
